@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>프로그레스바 세로로 바꾸기</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            height: 10000px;
+            /* 사선 그라디언트 deg 는 각도인가? */
+            background: linear-gradient(150deg, red, orange, yellow, green, indigo, purple, black);
+        }
+        h1 {
+            color : #fff;
+        }
+        .progress {
+            position: fixed;
+            width: 4px;
+            height: 140px;
+            top: 40%;
+            left: 10px;
+            background-color: black;
+            z-index: 10;
+        }
+        .bar {
+            position: absolute;
+            width: 4px;
+            height: 40px;
+            top: 0;
+            left: 0;
+            background-color: yellow;
+            z-index: 11;
+        }
+    </style>
+    <script>
+        // 참고 : 횡스크롤 형식의 페럴랙스 사이트
+        // https://www.cabletv.com/the-walking-dead
+        // 엄청난 스크롤을 해야하는 사이트
+        // https://neal.fun/deep-sea/
+
+        let scrollTop = 0;
+        let bar;
+
+        window.onload = function(){
+            bar = document.getElementsByClassName("bar")[0];
+        }
+
+        window.addEventListener("scroll", function(e){
+            scrollTop = document.documentElement.scrollTop;
+            // console.log(scrollTop); 스크롤 값 찍힘
+            let per = Math.round(scrollTop / (document.body.scrollHeight - window.outerHeight) * 100);
+            // outerHeight는 스크롤 내렸을때 남는거 때문에
+            console.log(per); // 스크롤이 퍼센트화되서 찍힘
+            
+            // 세로진행바에선 height
+            bar.style.height = per + "%";
+        }, false)
+    </script>
+</head>
+<body>
+    <h1>스크롤</h1>
+    <div class="progress">
+        <span class="bar"></span>
+    </div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>숫자 업 다운 게임</title>
+  <style>
+    body {
+      height: 100vh;
+      background: linear-gradient(120deg, #0272a4, #f6a564);
+    }
+    .contWrap {
+      position: relative;
+      width: 400px;
+      background: rgba(255,255,255, .7);
+      padding : 50px 20px;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      border-radius: 20px 20px 20px 20px;
+    }
+    input {
+      padding : 10px 20px;
+      font-size : 20px;
+      text-align: center;
+      max-width: 60px;
+    }
+    button {
+      font-size : 18px;
+      font-weight: bold;
+      padding : 10px 40px;
+    }
+  </style>
+  <script>
+    window.onload = function() {
+      var input = document.getElementsByTagName("input")[0];
+      var result = document.querySelector(".result");
+      var button = document.querySelector(".startBtn");
+      
+      // 클릭 이벤트 등록
+      button.addEventListener("click", function() {
+        //alert('실행');
+        resultFunc();
+      });
+
+      var resultArr = ["올려", "내려", "정답!"];
+      var randomNum = returnNum(10); // 정답인 숫자
+
+      function resultFunc() {
+        var value = input.value;
+        //alert(value)
+
+        if (value < randomNum) {
+          // 작을 때
+          result.innerHTML = resultArr[0];
+        } else if (value > randomNum) {
+          // 클 때
+          result.innerHTML = resultArr[1];
+        } else {
+          // 정답
+          result.innerHTML = resultArr[2];
+          alert("정답입니다 ^0^")
+          // 2초 뒤 리셋
+          setTimeout(function() {
+            // 리셋
+            resetFunc();
+          }, 1000)
+        }
+      }
+
+      // 리셋 메서드
+      function resetFunc() {
+        input.value = 1;
+        result.innerHTML = "한판 더 하자!";
+        randomNum = returnNum(10); // 리셋된 정답인 숫자 
+      }
+
+      function returnNum(num) {
+        return Math.round(Math.random() * num)
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="contWrap">
+    <h3>내가 생각한 숫자는 ?</h3>
+    <p class="result">(1 ~ 10)</p>
+    <input type="number" value="1" max="10" min="1">
+    <button type="button" class="startBtn">확인</button>
+  </div>
+</body>
+</html>

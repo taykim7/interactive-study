@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마우스무브 & 클릭</title>
+    <style>
+        body{
+            position: relative;
+            background-color: black;
+            /* body 에서는 마우스 커서가 안보임 */
+            /* cursor: none; */
+        }
+        h1{
+            color: #fff;
+        }
+        .cursor_item{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            top: 0;
+            left: 0;
+            margin: -50px 0 0 -50px;
+
+            /* 1초동안 ease / ease-out / ease-in-out 속도로 */
+            /* ○ 모션 속도 https://matthewlein.com/tools/ceaser 모션주고 cubic-bezier 가져오기*/
+            transition: all 1s cubic-bezier(0.665, -0.185, 0.395, 1.235);
+        }
+        button {
+            font-size: 40px;
+            font-weight: bold;
+            background: #fff;
+            color: red;
+            padding: 30px 80px;
+            margin: 50px;
+            cursor: pointer;
+
+            /* 버튼에도 모션줄 수 있음*/
+            transition: all .5s ease;
+        }
+        button:hover {
+            background: red;
+            color: #fff;
+            font-size: 30px;
+            padding: 100px 120px;
+        }
+    </style>
+    <script>
+        let cursor_item;
+        let h1;
+        // 마우스의 x, y 값
+        let x = 0;
+        let y = 0;
+
+        // 루프용 마우스의 x, y 값, 스피드
+        let mx = 0;
+        let my = 0
+        let speed = 0.09;
+
+        window.onload = function(){
+            // 마우스 움직일때마다 mousefunc 실행
+            window.addEventListener('mousemove', mousefunc, false);
+
+            // 이번엔 클릭
+            //window.addEventListener('click', mousefunc, false);
+
+            // h1 가져오기
+            h1 = document.getElementsByTagName('h1')[0];
+            // cursor_item이라는 클래스 가져오기
+            cursor_item = document.getElementsByClassName('cursor_item')[0];
+
+            function mousefunc(e){
+                // 이벤트 객체를 가져와서 X와 Y  위치를 알 수 있음
+                //console.log(e.clientX, e.clientY)
+
+                // x랑 y값에 넣어주기
+                x = e.clientX;
+                y = e.clientY;
+
+                // 가져온 위치 h1 에 적자
+                //h1.innerHTML = "X : " + x + " Y : " + y;
+                // cursor_item 스타일도 바꿈. 좌표를 줘서 졸졸따라다님
+                cursor_item.style.transform = "translate(" + x + "px, " + y + "px)";
+            }
+            
+            //loop();
+        }
+        
+        /*
+        function loop(){
+            // console.log(1); 프레임이 계속 돌아간다고 생각하면됨
+            // 모션 컨텐츠같은거에 많이 씀
+            //console.log(x,y);
+
+            mx += (x - mx) * speed;
+            my += (y - my) * speed;
+            
+            h1.innerHTML = "X : " + x + " MX : " + mx;
+            
+            cursor_item.style.transform = "translate(" + mx + "px, " + my + "px)";
+            window.requestAnimationFrame(loop);
+            //--==>> 에프터이펙트 마냥 모션감이 생긴다 .. 개신기
+        }
+        */
+
+    </script>
+</head>
+<body>
+    <h1>test</h1>
+    <div class="cursor_item"></div>
+    <button type="button">Start</button>
+</body>
+</html>

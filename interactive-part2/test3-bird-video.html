@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 영상활용</title>
+    <style>
+        img{
+            position: absolute;
+        }
+        .vod {
+            position: absolute;
+        }
+    </style>
+    <script>
+        let _imgArr;
+        let _bird;
+    
+        // 마우스의 x, y 값
+        let x = 0;
+        let y = 0;
+
+        // 루프용 마우스의 x, y 값, 스피드
+        let mx = 0;
+        let my = 0
+        let speed = 0.009;
+
+        window.onload = function(){
+            _imgArr = document.getElementsByTagName("img");
+            //alert(_imgArr.length); //--==>> 4
+            _bird = document.getElementsByTagName("div")[0];
+
+            window.addEventListener('mousemove', mouseFunc, false);
+
+            function mouseFunc(e){
+                // 전체화면크기에서 반을 자른 값을 빼줌
+                x = (e.clientX - window.innerWidth / 2);
+                y = (e.clientY - window.innerHeight / 2);
+            }
+            loop();
+        }
+        
+        function loop(){
+            mx += (x - mx) * speed;
+            my += (y - my) * speed;
+            
+            _imgArr[0].style.transform = "translate("+ -(mx/9) +"px,"+ -(my/9) +"px)";
+            _imgArr[1].style.transform = "translate("+ -(mx/5) +"px,"+ -(my/5) +"px)";
+            _imgArr[2].style.transform = "translate("+ -(mx/3) +"px,"+ -(my/3) +"px)";
+            _imgArr[3].style.transform = "translate("+ -(mx/1) +"px,"+ -(my/1) +"px)";
+            _bird.style.transform = "translate("+ -(mx/5) + "px,"+ -(my/5) +"px)";
+
+            window.requestAnimationFrame(loop);
+        }
+    </script>
+</head>
+<body>
+    <h1>test</h1>
+    
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/1-b90e91a4.png">
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/2-f3fd6cf5.png">
+    <!-- 영상 -->
+    <div class="vod"><video autoplay="" playsinline="" loop="" muted="" src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/videos/3-27c8c3ea.webm"></video></div>
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/4-105dd65b.png">
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/5-ac49bfdc.png">
+</body>
+</html>
