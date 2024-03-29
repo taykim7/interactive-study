@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "gruntfuggly.todo-tree",
+    "ritwickdey.liveserver",
+    "esbenp.prettier-vscode",
+    "octref.vetur"
+  ],
+  "unwantedRecommendations": [
+    "vue.volar",
+    "vue.vscode-typescript-vue-plugin"
+  ]
+}
