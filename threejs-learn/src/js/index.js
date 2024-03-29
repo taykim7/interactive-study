@@ -60,6 +60,29 @@ if (WebGL.isWebGLAvailable()) {
 
   // Scene와 Camera를 연결
   renderer.render(scene, camera);
+
+  // 애니메이션을 화면에 출력
+  function animate() {
+    // 박스를 회전 + 렌더
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+    // 콜백함수를 animate로 등록하여 계속 반복...
+    requestAnimationFrame(animate);
+  }
+  
+  animate(); // ==> 박스를 회전 + 렌더를 계속 반복함
+
+  // resize 이벤트 추가 (화면 사이즈 변경 이벤트)
+  window.addEventListener('resize', () => {
+    // 1. 카메라의 종횡비 변경
+    // updateProjectionMatrix로 속성 업데이트
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    // 2. 렌더러의 크기 변경 (현재 윈도우의 크기)
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }); // ==> 화면 크기를 변경하면 렌더러의 크기도 변경된다.
+
 } else {
   document.body.appendChild(WebGL.getWebGLErrorMessage())
 }
