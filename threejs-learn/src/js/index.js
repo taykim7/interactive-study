@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import WebGL from '../../node_modules/three/examples/jsm/capabilities/WebGL.js';
+import { OrbitControls } from "../../node_modules/three/examples/jsm/controls/OrbitControls.js";
 
 // html에서 canvase를 세팅하여 가져옴.
 const $result = document.getElementById('result');
@@ -55,10 +56,10 @@ if (WebGL.isWebGLAvailable()) {
 
   // 박스 생성
   // 도형과 재질을 설정하고 Mesh로 인스턴스 생성 그리고 add로 Scene에 추가
-  // const geometry = new THREE.BoxGeometry(1, 1, 1);
-  // const material = new THREE.MeshStandardMaterial({ color: 0x2E6FF2 })
-  // const cube = new THREE.Mesh(geometry, material);
-  // scene.add(cube);
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const material = new THREE.MeshStandardMaterial({ color: 0x2E6FF2 })
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
 
   // 1. 육면체 생성 (x, y, z)
   // const geo1 = new THREE.BoxGeometry(1, 1, 1);
@@ -101,41 +102,40 @@ if (WebGL.isWebGLAvailable()) {
   // const testMetry = new THREE.BoxGeometry(1, 1, 1);
   
   // 1. 단색 재질 (MeshBasicMaterial) : 명암 표현이 안되기 때문에 출력 확인용
-  const basic = new THREE.MeshBasicMaterial({
-    // color : 색상
-    color: 0x2E6FF2,
-    // wireframe : 와이어프레임(뼈대)
-    wireframe: false,
-    // transparent, opacity : 투명도
-    transparent: true,
-    opacity: 0.5,
-  })
+  // const basic = new THREE.MeshBasicMaterial({
+  //   // color : 색상
+  //   color: 0x2E6FF2,
+  //   // wireframe : 와이어프레임(뼈대)
+  //   wireframe: false,
+  //   // transparent, opacity : 투명도
+  //   transparent: true,
+  //   opacity: 0.5,
+  // })
   // 2. 표준 재질 (MeshStandardMaterial) : 가장 일반적, 언리얼에서 표준 재질, 명암 표현과 질감표현이 가능
-  const standard = new THREE.MeshStandardMaterial({
-    color: 0x2E6FF2,
-    // 거칠기
-    roughness: 0.2,
-    // 금속질감
-    metalness: 0.8,
-    // 텍스쳐 연결
-    // map:
-    // 사이드 속성 (렌더링할 면 결정) - 기본값이 FrontSide
-    // side: THREE.BackSide
-
-  });
+  // const standard = new THREE.MeshStandardMaterial({
+  //   color: 0x2E6FF2,
+  //   // 거칠기
+  //   roughness: 0.2,
+  //   // 금속질감
+  //   metalness: 0.8,
+  //   // 텍스쳐 연결
+  //   // map:
+  //   // 사이드 속성 (렌더링할 면 결정) - 기본값이 FrontSide
+  //   // side: THREE.BackSide
+  // });
   // 3. 피지컬 재질 (MeshPhysicalMaterial) : 스탠다드의 확장 재질,
   // 고급 물리 기반 렌더링 제공, 더 많은 물리적 특성을 추가할 수 있음(반투명이라던가)
-  const physical = new THREE.MeshPhysicalMaterial({
-    color: 0x2E6FF2,
-  })
+  // const physical = new THREE.MeshPhysicalMaterial({
+  //   color: 0x2E6FF2,
+  // })
   // 4. 퐁 재질 (MeshPhongMaterial) : 광택이 있는 표현 가능
-  const phong = new THREE.MeshPhongMaterial({
-    color: 0x2E6FF2,
-    // 광택
-    shininess: 38,
-    // 반사광
-    specular: 0x2E6FF2,
-  })
+  // const phong = new THREE.MeshPhongMaterial({
+  //   color: 0x2E6FF2,
+  //   // 광택
+  //   shininess: 38,
+  //   // 반사광
+  //   specular: 0x2E6FF2,
+  // })
   // const mesh = new THREE.Mesh(testMetry, phong);
   // scene.add(mesh);
 
@@ -147,57 +147,84 @@ if (WebGL.isWebGLAvailable()) {
 
   /** =================== Mesh 조작 =================== */
 
-  const geometry = new THREE.DodecahedronGeometry(1);
-  const material = new THREE.MeshStandardMaterial({
-    color: 0x2E6FF2,
-  });
-  const mesh = new THREE.Mesh(geometry, material);
-  scene.add(mesh);
+  // mesh 조작용 도형, 재질, 씬에 add
+  // const geometry = new THREE.DodecahedronGeometry(1);
+  // const material = new THREE.MeshStandardMaterial({
+  //   color: 0x2E6FF2,
+  // });
+  // const mesh = new THREE.Mesh(geometry, material);
+  // scene.add(mesh);
 
-  // 좌표축 - AxesHelper(크기)
+  // 0. 좌표축 표시 - AxesHelper(크기)
   // scene, mesh에 추가할 수 있음
-  const axesHelper = new THREE.AxesHelper(10);
-  scene.add(axesHelper);
+  // const axesHelper = new THREE.AxesHelper(10);
+  // scene.add(axesHelper);
 
   // 1. 위치 조작
   // mesh.position.x = 2;
   // mesh.position.y = 1;
-  mesh.position.set(0, 2, 1);
+  // mesh.position.set(0, 2, 1);
 
   // 2. 회전 조작
   // mesh.rotation.y = 360;
   // 회전의 기준이 라디안 값이라 다르게 출력된다.
   // 내가 아는 각도로 변경되도록 degToRad 메서드를 사용
-  mesh.rotation.y = THREE.MathUtils.degToRad(360);
+  // mesh.rotation.y = THREE.MathUtils.degToRad(360);
 
   // 3. 크기 조작
-  mesh.scale.x = 1.2;
-  mesh.scale.y = 0.1;
+  // mesh.scale.x = 1.2;
+  // mesh.scale.y = 0.1;
 
   // Scene와 Camera를 연결
   renderer.render(scene, camera);
 
+  /** =================== 애니메이션 =================== */
+  
+  // OrbitControls(카메라, 렌더러DOM요소)
+  const controls = new OrbitControls(camera, renderer.domElement);
+
+  // 오비컨트롤 설정
+  // 1. 줌 가능여부
+  controls.enableZoom = true;
+  // 2. 회전 가능여부
+  controls.enableRotate = true;
+  // 3. 마우스로 이동 가능여부
+  controls.enablePan = true;
+  // 4. 조작범위 (최소거리, 최대거리, 회전각도)
+  // controls.minDistance = 2;
+  // controls.maxDistance = 20;
+  // controls.maxPolarAngle = Math.PI / 3;
+  // 5. 자동회전 여부, 스피드(음수는 반대방향)
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = -30;
+  // 6. 회전 시 관성여부
+  controls.enableDamping = true;
+
   // 애니메이션을 화면에 출력
   function animate() {
     // 박스를 회전 + 렌더
-    cube.rotation.y += 0.01;
+    // cube.rotation.y += 0.01;
     renderer.render(scene, camera);
+    // 오비컨트롤 업데이트
+    controls.update();
     // 콜백함수를 animate로 등록하여 계속 반복...
     requestAnimationFrame(animate);
   }
   
   animate(); // ==> 박스를 회전 + 렌더를 계속 반복함
 
-  // resize 이벤트 추가 (화면 사이즈 변경 이벤트)
-  window.addEventListener('resize', () => {
-    // 1. 카메라의 종횡비 변경
-    // updateProjectionMatrix로 속성 업데이트
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+  /** =================== 이벤트 =================== */
+  
+  // // resize 이벤트 추가 (화면 사이즈 변경 이벤트)
+  // window.addEventListener('resize', () => {
+  //   // 1. 카메라의 종횡비 변경
+  //   // updateProjectionMatrix로 속성 업데이트
+  //   camera.aspect = window.innerWidth / window.innerHeight;
+  //   camera.updateProjectionMatrix();
 
-    // 2. 렌더러의 크기 변경 (현재 윈도우의 크기)
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  }); // ==> 화면 크기를 변경하면 렌더러의 크기도 변경된다.
+  //   // 2. 렌더러의 크기 변경 (현재 윈도우의 크기)
+  //   renderer.setSize(window.innerWidth, window.innerHeight);
+  // }); // ==> 화면 크기를 변경하면 렌더러의 크기도 변경된다.
 
 } else {
   document.body.appendChild(WebGL.getWebGLErrorMessage())
