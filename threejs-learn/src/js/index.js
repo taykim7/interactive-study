@@ -51,7 +51,8 @@ if (WebGL.isWebGLAvailable()) {
   pointLight.position.set(0, 2, 4);
   scene.add(pointLight);
 
-  /** Geometry 종류 */
+  /** =================== Geometry 종류 ===================*/
+
   // 박스 생성
   // 도형과 재질을 설정하고 Mesh로 인스턴스 생성 그리고 add로 Scene에 추가
   // const geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -59,44 +60,47 @@ if (WebGL.isWebGLAvailable()) {
   // const cube = new THREE.Mesh(geometry, material);
   // scene.add(cube);
 
-  // 육면체 생성 (x, y, z)
+  // 1. 육면체 생성 (x, y, z)
   // const geo1 = new THREE.BoxGeometry(1, 1, 1);
   // const obj1 = new THREE.Mesh(geo1, material);
   // scene.add(obj1);
   
-  // 원뿔 생성 (반지름길이, 높이, 분할면)
+  // 2. 원뿔 생성 (반지름길이, 높이, 분할면)
   // const geo2 = new THREE.ConeGeometry(0.5, 1, 30);
   // const obj2 = new THREE.Mesh(geo2, material);
   // scene.add(obj2);
 
-  // 원기둥 생성 (윗면 반지름, 아랫면 반지름, 높이, 분할면)
+  // 3. 원기둥 생성 (윗면 반지름, 아랫면 반지름, 높이, 분할면)
   // const geo3 = new THREE.CylinderGeometry(0.5, 0.8, 1, 10);
   // const obj3 = new THREE.Mesh(geo3, material);
   // scene.add(obj3);
 
-  // 구 생성 (반지름, 분할면)
+  // 4. 구 생성 (반지름, 분할면)
   // const geo4 = new THREE.SphereGeometry(1, 20);
   // const obj4 = new THREE.Mesh(geo4, material);
   // scene.add(obj4);
 
-  // 평면 생성 (넓이, 높이)
+  // 5. 평면 생성 (넓이, 높이)
   // const geo5 = new THREE.PlaneGeometry(1, 2);
   // const obj5 = new THREE.Mesh(geo5, material);
   // scene.add(obj5);
 
-  // 평면(원) 생성 (넓이, 높이)
+  // 6. 평면(원) 생성 (넓이, 높이)
   // const geo6 = new THREE.CircleGeometry(1, 32);
   // const obj6 = new THREE.Mesh(geo6, material);
   // scene.add(obj6);
 
-  // 튜브 생성 (전체반지름, 구멍 제외 반지름)
+  // 7. 튜브 생성 (전체반지름, 구멍 제외 반지름)
   // const geo7 = new THREE.TorusGeometry(1, 0.5);
   // const obj7 = new THREE.Mesh(geo7, material);
   // scene.add(obj7);
 
-  /** Material 종류 */
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  // 단색 재질 (MeshBasicMaterial) : 명암 표현이 안되기 때문에 출력 확인용
+  /** =================== Material 종류 =================== */
+
+  // 재질 확인용 형태
+  // const testMetry = new THREE.BoxGeometry(1, 1, 1);
+  
+  // 1. 단색 재질 (MeshBasicMaterial) : 명암 표현이 안되기 때문에 출력 확인용
   const basic = new THREE.MeshBasicMaterial({
     // color : 색상
     color: 0x2E6FF2,
@@ -106,7 +110,7 @@ if (WebGL.isWebGLAvailable()) {
     transparent: true,
     opacity: 0.5,
   })
-  // 표준 재질 (MeshStandardMaterial) : 가장 일반적, 언리얼에서 표준 재질, 명암 표현과 질감표현이 가능
+  // 2. 표준 재질 (MeshStandardMaterial) : 가장 일반적, 언리얼에서 표준 재질, 명암 표현과 질감표현이 가능
   const standard = new THREE.MeshStandardMaterial({
     color: 0x2E6FF2,
     // 거칠기
@@ -119,12 +123,12 @@ if (WebGL.isWebGLAvailable()) {
     // side: THREE.BackSide
 
   });
-  // 피지컬 재질 (MeshPhysicalMaterial) : 스탠다드의 확장 재질,
+  // 3. 피지컬 재질 (MeshPhysicalMaterial) : 스탠다드의 확장 재질,
   // 고급 물리 기반 렌더링 제공, 더 많은 물리적 특성을 추가할 수 있음(반투명이라던가)
   const physical = new THREE.MeshPhysicalMaterial({
     color: 0x2E6FF2,
   })
-  // 퐁 재질 (MeshPhongMaterial) : 광택이 있는 표현 가능
+  // 4. 퐁 재질 (MeshPhongMaterial) : 광택이 있는 표현 가능
   const phong = new THREE.MeshPhongMaterial({
     color: 0x2E6FF2,
     // 광택
@@ -132,14 +136,43 @@ if (WebGL.isWebGLAvailable()) {
     // 반사광
     specular: 0x2E6FF2,
   })
-  const mesh = new THREE.Mesh(geometry, phong);
-  scene.add(mesh);
+  // const mesh = new THREE.Mesh(testMetry, phong);
+  // scene.add(mesh);
 
   // side 속성 실험 (BackSide시에 뒷면만 보인다)
   // const plane = new THREE.Mesh((
   //   new THREE.PlaneGeometry(1, 1)
   // ), standard);
   // scene.add(plane);
+
+  /** =================== Mesh 조작 =================== */
+
+  const geometry = new THREE.DodecahedronGeometry(1);
+  const material = new THREE.MeshStandardMaterial({
+    color: 0x2E6FF2,
+  });
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+
+  // 좌표축 - AxesHelper(크기)
+  // scene, mesh에 추가할 수 있음
+  const axesHelper = new THREE.AxesHelper(10);
+  scene.add(axesHelper);
+
+  // 1. 위치 조작
+  // mesh.position.x = 2;
+  // mesh.position.y = 1;
+  mesh.position.set(0, 2, 1);
+
+  // 2. 회전 조작
+  // mesh.rotation.y = 360;
+  // 회전의 기준이 라디안 값이라 다르게 출력된다.
+  // 내가 아는 각도로 변경되도록 degToRad 메서드를 사용
+  mesh.rotation.y = THREE.MathUtils.degToRad(360);
+
+  // 3. 크기 조작
+  mesh.scale.x = 1.2;
+  mesh.scale.y = 0.1;
 
   // Scene와 Camera를 연결
   renderer.render(scene, camera);
