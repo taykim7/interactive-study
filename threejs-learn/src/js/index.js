@@ -53,10 +53,45 @@ if (WebGL.isWebGLAvailable()) {
 
   // 박스 생성
   // 도형과 재질을 설정하고 Mesh로 인스턴스 생성 그리고 add로 Scene에 추가
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  // const geometry = new THREE.BoxGeometry(1, 1, 1);
   const material = new THREE.MeshStandardMaterial({ color: 0x2E6FF2 })
-  const cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
+  // const cube = new THREE.Mesh(geometry, material);
+  // scene.add(cube);
+
+  // 육면체 생성 (x, y, z)
+  // const geo1 = new THREE.BoxGeometry(1, 1, 1);
+  // const obj1 = new THREE.Mesh(geo1, material);
+  // scene.add(obj1);
+  
+  // 원뿔 생성 (반지름길이, 높이, 분할면)
+  // const geo2 = new THREE.ConeGeometry(0.5, 1, 30);
+  // const obj2 = new THREE.Mesh(geo2, material);
+  // scene.add(obj2);
+
+  // 원기둥 생성 (윗면 반지름, 아랫면 반지름, 높이, 분할면)
+  // const geo3 = new THREE.CylinderGeometry(0.5, 0.8, 1, 10);
+  // const obj3 = new THREE.Mesh(geo3, material);
+  // scene.add(obj3);
+
+  // 구 생성 (반지름, 분할면)
+  // const geo4 = new THREE.SphereGeometry(1, 20);
+  // const obj4 = new THREE.Mesh(geo4, material);
+  // scene.add(obj4);
+
+  // 평면 생성 (넓이, 높이)
+  // const geo5 = new THREE.PlaneGeometry(1, 2);
+  // const obj5 = new THREE.Mesh(geo5, material);
+  // scene.add(obj5);
+
+  // 평면(원) 생성 (넓이, 높이)
+  // const geo6 = new THREE.CircleGeometry(1, 32);
+  // const obj6 = new THREE.Mesh(geo6, material);
+  // scene.add(obj6);
+
+  // 튜브 생성 (전체반지름, 구멍 제외 반지름)
+  const geo7 = new THREE.TorusGeometry(1, 0.5);
+  const obj7 = new THREE.Mesh(geo7, material);
+  scene.add(obj7);
 
   // Scene와 Camera를 연결
   renderer.render(scene, camera);
