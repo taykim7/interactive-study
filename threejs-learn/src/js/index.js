@@ -51,10 +51,11 @@ if (WebGL.isWebGLAvailable()) {
   pointLight.position.set(0, 2, 4);
   scene.add(pointLight);
 
+  /** Geometry 종류 */
   // 박스 생성
   // 도형과 재질을 설정하고 Mesh로 인스턴스 생성 그리고 add로 Scene에 추가
   // const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshStandardMaterial({ color: 0x2E6FF2 })
+  // const material = new THREE.MeshStandardMaterial({ color: 0x2E6FF2 })
   // const cube = new THREE.Mesh(geometry, material);
   // scene.add(cube);
 
@@ -89,9 +90,56 @@ if (WebGL.isWebGLAvailable()) {
   // scene.add(obj6);
 
   // 튜브 생성 (전체반지름, 구멍 제외 반지름)
-  const geo7 = new THREE.TorusGeometry(1, 0.5);
-  const obj7 = new THREE.Mesh(geo7, material);
-  scene.add(obj7);
+  // const geo7 = new THREE.TorusGeometry(1, 0.5);
+  // const obj7 = new THREE.Mesh(geo7, material);
+  // scene.add(obj7);
+
+  /** Material 종류 */
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  // 단색 재질 (MeshBasicMaterial) : 명암 표현이 안되기 때문에 출력 확인용
+  const basic = new THREE.MeshBasicMaterial({
+    // color : 색상
+    color: 0x2E6FF2,
+    // wireframe : 와이어프레임(뼈대)
+    wireframe: false,
+    // transparent, opacity : 투명도
+    transparent: true,
+    opacity: 0.5,
+  })
+  // 표준 재질 (MeshStandardMaterial) : 가장 일반적, 언리얼에서 표준 재질, 명암 표현과 질감표현이 가능
+  const standard = new THREE.MeshStandardMaterial({
+    color: 0x2E6FF2,
+    // 거칠기
+    roughness: 0.2,
+    // 금속질감
+    metalness: 0.8,
+    // 텍스쳐 연결
+    // map:
+    // 사이드 속성 (렌더링할 면 결정) - 기본값이 FrontSide
+    // side: THREE.BackSide
+
+  });
+  // 피지컬 재질 (MeshPhysicalMaterial) : 스탠다드의 확장 재질,
+  // 고급 물리 기반 렌더링 제공, 더 많은 물리적 특성을 추가할 수 있음(반투명이라던가)
+  const physical = new THREE.MeshPhysicalMaterial({
+    color: 0x2E6FF2,
+  })
+  // 퐁 재질 (MeshPhongMaterial) : 광택이 있는 표현 가능
+  const phong = new THREE.MeshPhongMaterial({
+    color: 0x2E6FF2,
+    // 광택
+    shininess: 38,
+    // 반사광
+    specular: 0x2E6FF2,
+  })
+  const mesh = new THREE.Mesh(geometry, phong);
+  scene.add(mesh);
+
+  // side 속성 실험 (BackSide시에 뒷면만 보인다)
+  // const plane = new THREE.Mesh((
+  //   new THREE.PlaneGeometry(1, 1)
+  // ), standard);
+  // scene.add(plane);
 
   // Scene와 Camera를 연결
   renderer.render(scene, camera);
