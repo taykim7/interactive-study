@@ -5,6 +5,8 @@ import printTree from '../mesh/tree.js'
 import printHanra from '../mesh/hanra.js'
 import printMountain from "../mesh/mountain.js";
 import printStone from "../mesh/stone.js";
+// 외부 모델링 가져오기
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const $result = document.getElementById('result');
 
@@ -48,6 +50,13 @@ if (WebGL.isWebGLAvailable()) {
   stoneMan.position.set(7, 0, 0);
   scene.add(stoneMan);
 
+  const loader = new GLTFLoader();
+  loader.load('./src/models/Lycat-3d.glb', (gltf) => {
+    const model = gltf.scene;
+    // 외부 모델링은 여기에서 조작해야한다.
+    model.position.x = 3;
+    scene.add(model);
+  })
   
   // 축
   const axes = new THREE.AxesHelper(10);

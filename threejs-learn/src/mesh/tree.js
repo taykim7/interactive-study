@@ -5,7 +5,7 @@ export default function printTree() {
   const basecolor = loader.load('./src/textures/wood/wood_basecolor.jpg');
   const normal = loader.load('./src/textures/wood/wood_normal.jpg');
   const rough = loader.load('./src/textures/wood/wood_roughness.jpg');
-  const height = loader.load('./src/textures/wood/wood_height.jpg');
+  const height = loader.load('./src/textures/wood/wood_height.png');
   
   // 야자나무
   const tree = new THREE.Group();
