@@ -3,6 +3,8 @@ import WebGL from '../../node_modules/three/examples/jsm/capabilities/WebGL.js';
 import { OrbitControls } from "../../node_modules/three/examples/jsm/controls/OrbitControls.js";
 import printTree from '../mesh/tree.js'
 import printHanra from '../mesh/hanra.js'
+import printMountain from "../mesh/mountain.js";
+import printStone from "../mesh/stone.js";
 
 const $result = document.getElementById('result');
 
@@ -29,13 +31,23 @@ if (WebGL.isWebGLAvailable()) {
   // 한라봉 코드 분리
   const hanra1 = printHanra();
   scene.add(hanra1);
-  hanra1.position.x = 0;
+  hanra1.position.set(0, 3, 0);
   hanra1.scale.set(0.5, 0.5, 0.5);
   
   // 야자수 코드 분리
   const tree1 = printTree();
   scene.add(tree1);
-  tree1.position.x = 2;
+  tree1.position.x = -7;
+
+  // 섬
+  const mountain = printMountain();
+  scene.add(mountain);
+  
+  // 돌하르방
+  const stoneMan = printStone();
+  stoneMan.position.set(7, 0, 0);
+  scene.add(stoneMan);
+
   
   // 축
   const axes = new THREE.AxesHelper(10);
