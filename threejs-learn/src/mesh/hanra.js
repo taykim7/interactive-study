@@ -1,11 +1,19 @@
 import * as THREE from "three";
+
 export default function printHanra() {
+  // 한라봉 텍스쳐 가져오기
+  const loader = new THREE.TextureLoader();
+  const basecolor = loader.load('./src/textures/orange/Orange_001_COLOR.jpg');
+  const normal = loader.load('./src/textures/orange/Orange_001_NORM.jpg');
+  const rough = loader.load('./src/textures/orange/Orange_001_ROUGH.jpg');
+
   // 한라봉
   const hanra = new THREE.Group();
-
   const bodyMaterial = new THREE.MeshStandardMaterial({
     color: '#ffa64c',
-    // wireframe: true,
+    map: basecolor,
+    normalMap: normal,
+    roughnessMap: rough,
   });
   // 한라봉_밑
   const bottomGeoMetry = new THREE.DodecahedronGeometry(2, 1);

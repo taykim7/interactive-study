@@ -1,9 +1,20 @@
 import * as THREE from "three";
 export default function printTree() {
+  // 야자나무 텍스쳐 가져오기
+  const loader = new THREE.TextureLoader();
+  const basecolor = loader.load('./src/textures/wood/wood_basecolor.jpg');
+  const normal = loader.load('./src/textures/wood/wood_normal.jpg');
+  const rough = loader.load('./src/textures/wood/wood_roughness.jpg');
+  const height = loader.load('./src/textures/wood/wood_height.jpg');
+  
   // 야자나무
   const tree = new THREE.Group();
   const trunkMaterial = new THREE.MeshStandardMaterial({
     color: '#b67e36',
+    map: basecolor,
+    normalMap: normal,
+    roughnessMap: rough,
+    displacementMap: height,
   });
   // 야자나무_줄기
   const trunk = new THREE.Group();
@@ -28,11 +39,16 @@ export default function printTree() {
   // 야자나무_줄기 그룹을 추가
   tree.add(trunk);
 
+  // 야자나무_잎 텍스쳐 가져오기
+  const leafBasecolor = loader.load('./src/textures/leaf/leaf_texture.png');
   // 야자나무_잎
   // 나뭇잎
   const leafMaterial = new THREE.MeshStandardMaterial({
     color: '#008000',
     side: THREE.DoubleSide,
+    map: leafBasecolor,
+    // png 투명도 활성화
+    transparent: true,
   });
   const leafGeometry = new THREE.SphereGeometry(2, 32, 16, Math.PI / 3, Math.PI / 3);
   const leaf = new THREE.Group();
