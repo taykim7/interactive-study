@@ -1,0 +1,18 @@
+body{
+  margin: 0px;
+  overflow: hidden;
+  background-color:#ffda73;
+}
+#app{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#lottie{
+  width: 70%;
+  /* transform: translate3d(0,0,0); */
+  /* opacity: 1; */
+}
